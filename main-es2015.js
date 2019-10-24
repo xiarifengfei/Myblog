@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<table>\r\n  <tr *ngFor=\"let article of articles\">\r\n    <td id=\"{{ article._id }}\" (click)=\"this.checkDetails(article._id)\">\r\n      \r\n        <h3> {{ article.title }}</h3>\r\n        <p *ngIf=\"article.updateDate\">\r\n          {{ article.updateDate}}</p>\r\n    </td>\r\n  </tr>\r\n</table>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div>\r\n  {{message}}\r\n  <button *ngIf=\"show_manu\" (click)=\"this.createNewArticle()\" class=\"createNewArticle button-primary\" >create New Article</button>\r\n  <ul *ngFor=\"let article of articles\">\r\n    <li id=\"{{ article._id }}\" (click)=\"this.checkDetails(article._id)\">      \r\n        <h3> {{ article.title }}</h3>\r\n        <p *ngIf=\"article.updateDate\">\r\n          {{ article.updateDate}}</p>\r\n    <ng-container *ngIf=\"show_manu\">\r\n        <button type=\"button\" class=\"btn btn-success\"(click)=\"this.editArticle(article._id,$event)\">Edit</button>\r\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"this.deleteArticle(article._id,$event)\">Delete</button>\r\n    </ng-container>\r\n    </li>\r\n  </ul>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -84,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navSidebar \">\r\n    <div class=\"sidebar-top-div \" id=\"sidebar-top-div\" ><div class=\"show_manu\" (click)=\"this.showManu()\"></div></div>\r\n    <div class=\"sidebar-manu-div\">\r\n        <div class=\"name\"><h3>{{ userprofile.nickname }}</h3></div>\r\n        <div class=\"sign\"><p>{{ userprofile.signature }}</p></div>\r\n        <ng-container *ngIf=\"show_manu\">\r\n        <ul class=\"list-group\">\r\n        <li class=\"manus list-group-item list-group-item-action \" *ngFor=\"let manu of indexnavmanue \" [routerLink]=[manu.url] routerlinkActive=\"active\" >\r\n           {{ manu.title }} <a class=\"sidebar-manu-link\"  [routerLink]=[manu.url] routerlinkActive=\"active\" ></a> \r\n        </li>\r\n        </ul>\r\n        <div class=\"logo-links\">\r\n            <a *ngFor=\"let link of indexnavlink\" class=\"exlink\" [href]=\"link.url\"><img [src]=\"link.imglocation\" /></a>\r\n        </div>\r\n    </ng-container>\r\n    </div>\r\n    <div class=\"sidebar-bottom-div\"></div>\r\n</nav> ");
+/* harmony default export */ __webpack_exports__["default"] = ("<nav class=\"navSidebar \">\r\n    <div class=\"sidebar-top-div \" id=\"sidebar-top-div\" ><div class=\"show_manu\" (click)=\"this.showManu()\"></div></div>\r\n    <div class=\"sidebar-manu-div\">\r\n        <div class=\"name\"><h3>{{ userprofile.nickname }}</h3></div>\r\n        <div class=\"sign\"><p>{{ userprofile.signature }}</p></div>\r\n        <ng-container *ngIf=\"show_manu\">\r\n        <ul class=\"list-group\">\r\n        <li class=\"manus list-group-item list-group-item-action \" *ngFor=\"let manu of indexnavmanue \" [routerLink]=[manu.url] routerlinkActive=\"active\" >\r\n           {{ manu.title }} <a class=\"sidebar-manu-link\"  [routerLink]=[manu.url] routerlinkActive=\"active\" ></a> \r\n        </li>\r\n        <li class=\"manus list-group-item list-group-item-action \" (click)=\"logout()\" >\r\n            logout\r\n        </li>\r\n        </ul>\r\n        <div class=\"logo-links\">\r\n            <a *ngFor=\"let link of indexnavlink\" class=\"exlink\" [href]=\"link.url\"><img [src]=\"link.imglocation\" /></a>\r\n        </div>\r\n    </ng-container>\r\n    </div>\r\n    <div class=\"sidebar-bottom-div\"></div>\r\n</nav> ");
 
 /***/ }),
 
@@ -629,6 +629,59 @@ ArticleDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/article-detail/article.serve.ts":
+/*!*************************************************!*\
+  !*** ./src/app/article-detail/article.serve.ts ***!
+  \*************************************************/
+/*! exports provided: articleServe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "articleServe", function() { return articleServe; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config/config */ "./src/app/config/config.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _httpserve_http_error_handler_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../httpserve/http-error-handler.service */ "./src/app/httpserve/http-error-handler.service.ts");
+
+
+
+
+
+
+const httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+        'Content-Type': 'application/json'
+    })
+};
+let articleServe = class articleServe {
+    constructor(httpClient, httpErrorHandler) {
+        this.httpClient = httpClient;
+        this.handleError = httpErrorHandler.createHandleError('articleService');
+        this.URL = _config_config__WEBPACK_IMPORTED_MODULE_2__["backendurl"].articles;
+    }
+    deleteArticle(articleId) {
+        return this.httpClient
+            .delete(`${_config_config__WEBPACK_IMPORTED_MODULE_2__["webconfig"].backendurl}${this.URL.base}/${articleId}`, httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('delete atricle', false)));
+    }
+};
+articleServe.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+    { type: _httpserve_http_error_handler_service__WEBPACK_IMPORTED_MODULE_5__["HttpErrorHandler"] }
+];
+articleServe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Injectable"])({
+        providedIn: 'root',
+    })
+], articleServe);
+
+
+
+/***/ }),
+
 /***/ "./src/app/article-list/article-list.component.css":
 /*!*********************************************************!*\
   !*** ./src/app/article-list/article-list.component.css ***!
@@ -638,7 +691,7 @@ ArticleDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("table\r\n{   margin: 0px;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(212, 212, 226, 0.856);\r\n    border-collapse:collapse;\r\n    \r\n}\r\ntable tr:nth-child(odd){\r\n    margin: 0px;\r\n    background-color: #efefef;\r\n    border-spacing:0px;\r\n}\r\ntable tr:nth-child(even){\r\n    margin: 0px;\r\n    background-color: rgb(155, 148, 148);\r\n    border-spacing:0px;\r\n}\r\ntable tr th{\r\n    padding:5%;\r\n}\r\ntable tr td{\r\n    padding:5%;\r\n}\r\na{\r\n\r\n    color:black;\r\n}\r\np{\r\n\r\n    color:black;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXJ0aWNsZS1saXN0L2FydGljbGUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztJQUNYLFdBQVc7SUFDWCxZQUFZO0lBQ1osNENBQTRDO0lBQzVDLHdCQUF3Qjs7QUFFNUI7QUFDQTtJQUNJLFdBQVc7SUFDWCx5QkFBeUI7SUFDekIsa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSxXQUFXO0lBQ1gsb0NBQW9DO0lBQ3BDLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksVUFBVTtBQUNkO0FBQ0E7SUFDSSxVQUFVO0FBQ2Q7QUFDQTs7SUFFSSxXQUFXO0FBQ2Y7QUFDQTs7SUFFSSxXQUFXO0FBQ2YiLCJmaWxlIjoic3JjL2FwcC9hcnRpY2xlLWxpc3QvYXJ0aWNsZS1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZVxyXG57ICAgbWFyZ2luOiAwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMjEyLCAyMTIsIDIyNiwgMC44NTYpO1xyXG4gICAgYm9yZGVyLWNvbGxhcHNlOmNvbGxhcHNlO1xyXG4gICAgXHJcbn1cclxudGFibGUgdHI6bnRoLWNoaWxkKG9kZCl7XHJcbiAgICBtYXJnaW46IDBweDtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNlZmVmZWY7XHJcbiAgICBib3JkZXItc3BhY2luZzowcHg7XHJcbn1cclxudGFibGUgdHI6bnRoLWNoaWxkKGV2ZW4pe1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTU1LCAxNDgsIDE0OCk7XHJcbiAgICBib3JkZXItc3BhY2luZzowcHg7XHJcbn1cclxudGFibGUgdHIgdGh7XHJcbiAgICBwYWRkaW5nOjUlO1xyXG59XHJcbnRhYmxlIHRyIHRke1xyXG4gICAgcGFkZGluZzo1JTtcclxufVxyXG5he1xyXG5cclxuICAgIGNvbG9yOmJsYWNrO1xyXG59XHJcbnB7XHJcblxyXG4gICAgY29sb3I6YmxhY2s7XHJcbn1cclxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("ul\r\n{   margin: 0px;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color:white; \r\n    border-collapse:collapse;\r\n    list-style-type:none;\r\n    \r\n    \r\n}\r\nul:nth-child(odd){\r\n    margin: 0px;\r\n    background-color: #efefef;\r\n    border-spacing:0px;\r\n}\r\nul:nth-child(even){\r\n    margin: 0px;\r\n    background-color: rgb(155, 148, 148);\r\n    border-spacing:0px;\r\n}\r\nul li{\r\n    padding:5%;\r\n}\r\ntable tr td{\r\n    padding:5%;\r\n}\r\na{\r\n\r\n    color:black;\r\n}\r\np{\r\n\r\n    color:black;\r\n}\r\n.createNewArticle{\r\n    width:100%;\r\n    margin: 0px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXJ0aWNsZS1saXN0L2FydGljbGUtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztJQUNYLFdBQVc7SUFDWCxZQUFZO0lBQ1osc0JBQXNCO0lBQ3RCLHdCQUF3QjtJQUN4QixvQkFBb0I7OztBQUd4QjtBQUNBO0lBQ0ksV0FBVztJQUNYLHlCQUF5QjtJQUN6QixrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLFdBQVc7SUFDWCxvQ0FBb0M7SUFDcEMsa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSxVQUFVO0FBQ2Q7QUFDQTtJQUNJLFVBQVU7QUFDZDtBQUNBOztJQUVJLFdBQVc7QUFDZjtBQUNBOztJQUVJLFdBQVc7QUFDZjtBQUNBO0lBQ0ksVUFBVTtJQUNWLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2FydGljbGUtbGlzdC9hcnRpY2xlLWxpc3QuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInVsXHJcbnsgICBtYXJnaW46IDBweDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjp3aGl0ZTsgXHJcbiAgICBib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7XHJcbiAgICBsaXN0LXN0eWxlLXR5cGU6bm9uZTtcclxuICAgIFxyXG4gICAgXHJcbn1cclxudWw6bnRoLWNoaWxkKG9kZCl7XHJcbiAgICBtYXJnaW46IDBweDtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNlZmVmZWY7XHJcbiAgICBib3JkZXItc3BhY2luZzowcHg7XHJcbn1cclxudWw6bnRoLWNoaWxkKGV2ZW4pe1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTU1LCAxNDgsIDE0OCk7XHJcbiAgICBib3JkZXItc3BhY2luZzowcHg7XHJcbn1cclxudWwgbGl7XHJcbiAgICBwYWRkaW5nOjUlO1xyXG59XHJcbnRhYmxlIHRyIHRke1xyXG4gICAgcGFkZGluZzo1JTtcclxufVxyXG5he1xyXG5cclxuICAgIGNvbG9yOmJsYWNrO1xyXG59XHJcbnB7XHJcblxyXG4gICAgY29sb3I6YmxhY2s7XHJcbn1cclxuLmNyZWF0ZU5ld0FydGljbGV7XHJcbiAgICB3aWR0aDoxMDAlO1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn0iXX0= */");
 
 /***/ }),
 
@@ -657,13 +710,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _config_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config/config */ "./src/app/config/config.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _article_detail_article_serve__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../article-detail/article.serve */ "./src/app/article-detail/article.serve.ts");
+
 
 
 
 
 
 let articlesComponent = class articlesComponent {
-    constructor(httpClient, router) {
+    constructor(articleServeh, httpClient, router) {
+        this.articleServeh = articleServeh;
         this.httpClient = httpClient;
         this.router = router;
     }
@@ -677,12 +733,30 @@ let articlesComponent = class articlesComponent {
         }, err => {
             console.log("Error occured.", err);
         });
+        this.show_manu = (localStorage.getItem("editmode") === "open");
     }
     checkDetails(id) {
         this.router.navigate(['/article', id]);
     }
+    createNewArticle() {
+    }
+    editArticle(id, e) {
+        e.stopPropagation();
+    }
+    deleteArticle(id, e) {
+        e.stopPropagation();
+        this.articleServeh.deleteArticle(id).subscribe(data => {
+            if (data.success) {
+                this.message = "success delete";
+            }
+            else {
+                this.message = "error delete";
+            }
+        });
+    }
 };
 articlesComponent.ctorParameters = () => [
+    { type: _article_detail_article_serve__WEBPACK_IMPORTED_MODULE_5__["articleServe"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
@@ -730,10 +804,6 @@ const indexnavmanue = [
     {
         title: 'login',
         url: './user'
-    },
-    {
-        title: 'logout',
-        url: './user/logout'
     }
 ];
 const userprofile = {
@@ -1062,6 +1132,9 @@ let indexnavComponent = class indexnavComponent {
     }
     showManu() {
         this.show_manu = !this.show_manu;
+    }
+    logout() {
+        localStorage.clear();
     }
 };
 indexnavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1399,7 +1472,7 @@ let userServe = class userServe {
         })))
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(response => {
             if (response.success) {
-                localStorage.setItem("accessToken", response.jwt);
+                this.setAccessToken(response.jwt);
                 localStorage.setItem("refreshToken", response.refjwt);
             }
             return response;
@@ -1421,7 +1494,10 @@ let userServe = class userServe {
         return localStorage.getItem("refreshToken");
     }
     setAccessToken(token) {
+        var d = new Date();
+        var expireTime = d.getTime() + 1000 * 60 * 5;
         localStorage.setItem("accessToken", token);
+        localStorage.setItem("expireTime", expireTime.toString());
     }
     refreshToken() {
         var jwt = this.getRefToken();
@@ -1440,6 +1516,11 @@ let userServe = class userServe {
         //         return response.success;
         //     }
         // ))
+    }
+    isExpiredToken() {
+        var expireTime = localStorage.getItem("expireTime");
+        var now = new Date;
+        return parseInt(expireTime) > now.getTime();
     }
 };
 userServe.ctorParameters = () => [
