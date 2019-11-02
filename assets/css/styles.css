@@ -1,12 +1,25 @@
 /* You can add global styles to this file, and also import other style files background-color:#1E1E1E; */
 
-body{
-    
+body {
     background-position: center;
-    height:100%;
-    width:100%;
-    
+    height: 100%;
+    width: 100%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.maincontainer {
+    padding: 0px;
+    min-height: 800px;
+    background: url("../img/background-black.jpg");
+    background-size: cover;
+    min-height: 100vh;
+}
